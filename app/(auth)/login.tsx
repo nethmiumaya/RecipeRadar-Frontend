@@ -12,6 +12,7 @@ export default function LoginScreen() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+    // login.tsx
     const handleLogin = async () => {
         try {
             setError('');

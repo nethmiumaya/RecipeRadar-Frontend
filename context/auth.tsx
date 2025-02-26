@@ -1,6 +1,8 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Platform } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
+import axios from 'axios';
+import {createContext} from "react";
 
 interface User {
     id: string;
@@ -11,17 +13,12 @@ interface User {
 interface AuthContextType {
     user: User | null;
     signIn: (credentials: { email: string; password: string }) => Promise<void>;
-    signUp: (credentials: {
-        email: string;
-        password: string;
-        name: string;
-    }) => Promise<void>;
+    signUp: (credentials: { email: string; password: string; name: string }) => Promise<void>;
     signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-// Storage helper that works on both web and native
 const storage = {
     async getItem(key: string): Promise<string | null> {
         if (Platform.OS === 'web') {
@@ -60,29 +57,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const signIn = async (credentials: { email: string; password: string }) => {
-        // TODO: Implement actual API call
-        const mockUser = {
-            id: '1',
-            name: 'John Doe',
-            email: credentials.email,
-        };
-        await storage.setItem('user', JSON.stringify(mockUser));
-        setUser(mockUser);
+        try {
+            const response = await axios.post('http://localhost:3000/api/auth/login', credentials);
+            const { token } = response.data;
+
+            const userResponse = await axios.get('http://localhost:3000/api/auth/users', {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            const userData = userResponse.data[0];
+            if (!userData) {
+                throw new Error('User not found');
+            }
+
+            await storage.setItem('user', JSON.stringify(userData));
+            setUser(userData);
+        } catch (error) {
+            console.error('Login failed:', error);
+            throw new Error('Invalid email or password');
+        }
     };
 
-    const signUp = async (credentials: {
-        email: string;
-        password: string;
-        name: string;
-    }) => {
-        // TODO: Implement actual API call
-        const mockUser = {
-            id: '1',
-            name: credentials.name,
-            email: credentials.email,
-        };
-        await storage.setItem('user', JSON.stringify(mockUser));
-        setUser(mockUser);
+    const signUp = async (credentials: { email: string; password: string; name: string }) => {
+        await axios.post('http://localhost:3000/api/auth/register', credentials);
+        const user = { id: '1', name: credentials.name, email: credentials.email }; // Mock user for now
+        await storage.setItem('user', JSON.stringify(user));
+        setUser(user);
     };
 
     const signOut = async () => {
