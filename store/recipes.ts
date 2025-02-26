@@ -1,13 +1,9 @@
 import { create } from 'zustand';
 import axios from 'axios';
-import { Recipe, RecipeDetails } from '../types/recipe';
-
-const API_KEY = 'YOUR_SPOONACULAR_API_KEY'; // Replace with your actual API key
-const API_URL = 'https://api.spoonacular.com/recipes';
 
 interface RecipeStore {
-    recipes: Recipe[];
-    currentRecipe: RecipeDetails | null;
+    recipes: any[];
+    currentRecipe: any | null;
     searchHistory: string[];
     loading: boolean;
     error: string | null;
@@ -25,24 +21,21 @@ export const useRecipeStore = create<RecipeStore>((set, get) => ({
     searchRecipes: async (ingredients: string) => {
         try {
             set({ loading: true, error: null });
-            const response = await axios.get(`${API_URL}/findByIngredients`, {
-                params: {
-                    apiKey: API_KEY,
-                    ingredients,
-                    number: 10,
-                    ranking: 2,
-                    ignorePantry: true,
-                },
+
+            const apiKey = '4d0a224169d642f9ae249cf2f4d1de15';
+            const response = await axios.get('https://api.spoonacular.com/recipes/findByIngredients', {
+                params: { ingredients, apiKey }
             });
+
             set((state) => ({
                 recipes: response.data,
                 searchHistory: [ingredients, ...state.searchHistory],
-                loading: false,
+                loading: false
             }));
         } catch (error) {
             set({
                 error: 'Failed to search recipes',
-                loading: false,
+                loading: false
             });
         }
     },
@@ -50,20 +43,21 @@ export const useRecipeStore = create<RecipeStore>((set, get) => ({
     getRecipeDetails: async (id: number) => {
         try {
             set({ loading: true, error: null });
-            const response = await axios.get(`${API_URL}/${id}/information`, {
-                params: {
-                    apiKey: API_KEY,
-                },
+
+            const apiKey = '4d0a224169d642f9ae249cf2f4d1de15';
+            const response = await axios.get(`https://api.spoonacular.com/recipes/${id}/information`, {
+                params: { apiKey }
             });
+
             set({
                 currentRecipe: response.data,
-                loading: false,
+                loading: false
             });
         } catch (error) {
             set({
                 error: 'Failed to get recipe details',
-                loading: false,
+                loading: false
             });
         }
-    },
+    }
 }));

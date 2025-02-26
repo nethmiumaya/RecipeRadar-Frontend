@@ -22,10 +22,10 @@ const styles = StyleSheet.create({
         padding: 16,
         backgroundColor: '#f8f8f8',
         borderRadius: 8,
-        gap: 12,
+        gap: 12
     },
     text: {
         fontSize: 16,
-        color: '#333',
-    },
+        color: '#333'
+    }
 });

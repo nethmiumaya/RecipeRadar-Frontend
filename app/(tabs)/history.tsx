@@ -16,18 +16,11 @@ export default function HistoryScreen() {
                 renderItem={({ item }) => (
                     <SearchHistoryItem
                         query={item}
-                        onPress={() => {
-                            router.push({
-                                pathname: '/(tabs)',
-                                params: { ingredients: item },
-                            });
-                        }}
+                        onPress={() => router.push({ pathname: '/(tabs)', params: { ingredients: item } })}
                     />
                 )}
                 contentContainerStyle={styles.list}
-                ListEmptyComponent={
-                    <Text style={styles.emptyText}>No search history yet</Text>
-                }
+                ListEmptyComponent={<Text style={styles.emptyText}>No search history yet</Text>}
             />
         </View>
     );
@@ -37,22 +30,22 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        padding: 20,
+        padding: 20
     },
     title: {
         fontSize: 32,
         fontWeight: 'bold',
         color: '#1a1a1a',
         marginTop: 60,
-        marginBottom: 24,
+        marginBottom: 24
     },
     list: {
-        gap: 12,
+        gap: 12
     },
     emptyText: {
         textAlign: 'center',
         color: '#666',
         fontSize: 16,
-        marginTop: 24,
-    },
+        marginTop: 24
+    }
 });
