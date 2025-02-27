@@ -59,18 +59,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const signIn = async (credentials: { email: string; password: string }) => {
         try {
             const response = await axios.post('http://localhost:3000/api/auth/login', credentials);
-            const { token } = response.data;
+            // Get ALL user data from the login response including name and email
+            const { id, name, email, token } = response.data;
 
-            const userResponse = await axios.get('http://localhost:3000/api/auth/users', {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-
-            const userData = userResponse.data[0];
-            if (!userData) {
-                throw new Error('User not found');
-            }
-
-            const userWithToken = { ...userData, token };
+            const userWithToken = { id, name, email, token };
             await storage.setItem('user', JSON.stringify(userWithToken));
             setUser(userWithToken);
         } catch (error) {
