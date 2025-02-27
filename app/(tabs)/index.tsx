@@ -1,18 +1,26 @@
+import { useEffect, useState } from 'react';
 import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRecipeStore } from '../../store/recipes';
+import { useAuth } from '../../context/auth';
 import RecipeCard from '../../components/RecipeCard';
 import { Search } from 'lucide-react-native';
 
 export default function SearchScreen() {
     const router = useRouter();
+    const { user } = useAuth();
     const [ingredients, setIngredients] = useState('');
-    const { recipes, searchRecipes, loading } = useRecipeStore();
+    const { recipes, searchRecipes, loading, fetchSearchHistory } = useRecipeStore();
+
+    useEffect(() => {
+        if (user) {
+            fetchSearchHistory(user);
+        }
+    }, [user]);
 
     const handleSearch = () => {
-        if (ingredients.trim()) {
-            searchRecipes(ingredients);
+        if (ingredients.trim() && user) {
+            searchRecipes(user, ingredients);
         }
     };
 

@@ -1,26 +1,37 @@
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useRecipeStore } from '../../store/recipes';
+import { useAuth } from '../../context/auth';
 import SearchHistoryItem from '../../components/SearchHistoryItem';
+import { useEffect } from 'react';
 
 export default function HistoryScreen() {
     const router = useRouter();
-    const { searchHistory } = useRecipeStore();
+    const { user } = useAuth();
+    const { searchHistory, fetchSearchHistory } = useRecipeStore();
+
+    useEffect(() => {
+        if (user) {
+            fetchSearchHistory(user);
+        }
+    }, [user]);
+
+    const renderItem = ({ item }: { item: { id: string; query: string; userId: string; createdAt: string } }) => (
+        <SearchHistoryItem
+            query={item}
+            onPress={() => router.push(`/recipe/${Number(item.id)}`)} // Ensure id is parsed as a number
+        />
+    );
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Search History</Text>
             <FlatList
                 data={searchHistory}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
-                    <SearchHistoryItem
-                        query={item}
-                        onPress={() => router.push({ pathname: '/(tabs)', params: { ingredients: item } })}
-                    />
-                )}
+                keyExtractor={(item) => item.id}
+                renderItem={renderItem}
                 contentContainerStyle={styles.list}
-                ListEmptyComponent={<Text style={styles.emptyText}>No search history yet</Text>}
+                ListEmptyComponent={<Text style={styles.emptyText}>No search history found.</Text>}
             />
         </View>
     );

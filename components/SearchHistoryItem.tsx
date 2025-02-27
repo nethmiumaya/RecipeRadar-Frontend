@@ -2,7 +2,7 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { History } from 'lucide-react-native';
 
 interface SearchHistoryItemProps {
-    query: string;
+    query: { id: string; query: string; userId: string; createdAt: string };
     onPress: () => void;
 }
 
@@ -10,7 +10,7 @@ export default function SearchHistoryItem({ query, onPress }: SearchHistoryItemP
     return (
         <TouchableOpacity style={styles.container} onPress={onPress}>
             <History size={20} color="#666" />
-            <Text style={styles.text}>{query}</Text>
+            <Text style={styles.text}>{query.query}</Text>
         </TouchableOpacity>
     );
 }

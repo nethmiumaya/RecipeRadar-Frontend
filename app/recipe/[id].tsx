@@ -10,7 +10,7 @@ export default function RecipeDetailsScreen() {
 
     useEffect(() => {
         if (id) {
-            getRecipeDetails(Number(id));
+            getRecipeDetails(Number(id)); // Ensure id is parsed as a number
         }
     }, [id]);
 
