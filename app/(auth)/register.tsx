@@ -1,13 +1,13 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform, Image } from 'react-native';
-import { useRouter } from 'expo-router';
-import { useState } from 'react';
-import { useAuth } from '../../context/auth';
-import { Lock, Mail, User } from 'lucide-react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, Platform, Image} from 'react-native';
+import {useRouter} from 'expo-router';
+import {useState} from 'react';
+import {useAuth} from '../../context/auth';
+import {Lock, Mail, User} from 'lucide-react-native';
+import {LinearGradient} from 'expo-linear-gradient';
 
 export default function RegisterScreen() {
     const router = useRouter();
-    const { signUp } = useAuth();
+    const {signUp} = useAuth();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,7 +20,7 @@ export default function RegisterScreen() {
                 setError('Please fill in all fields');
                 return;
             }
-            await signUp({ email, password, name });
+            await signUp({email, password, name});
             router.replace('/(tabs)');
         } catch (error) {
             setError('Registration failed. Please try again.');
@@ -34,17 +34,17 @@ export default function RegisterScreen() {
                 style={styles.header}
             >
                 <Image
-                    source={{ uri: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=800&auto=format&fit=crop' }}
+                    source={{uri: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=800&auto=format&fit=crop'}}
                     style={styles.headerImage}
                 />
-                <View style={styles.overlay} />
+                <View style={styles.overlay}/>
                 <Text style={styles.title}>Create Account</Text>
                 <Text style={styles.subtitle}>Join our community of food lovers</Text>
             </LinearGradient>
 
             <View style={styles.form}>
                 <View style={styles.inputContainer}>
-                    <User size={20} color="#666" />
+                    <User size={20} color="#666"/>
                     <TextInput
                         style={styles.input}
                         placeholder="Full Name"
@@ -55,7 +55,7 @@ export default function RegisterScreen() {
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <Mail size={20} color="#666" />
+                    <Mail size={20} color="#666"/>
                     <TextInput
                         style={styles.input}
                         placeholder="Email"
@@ -68,7 +68,7 @@ export default function RegisterScreen() {
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <Lock size={20} color="#666" />
+                    <Lock size={20} color="#666"/>
                     <TextInput
                         style={styles.input}
                         placeholder="Password"

@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { recipeService } from '../../service/recipeService';
-import { RecipeDetails } from '../../types/types';
+import {create} from 'zustand';
+import {recipeService} from '../../service/recipeService';
+import {RecipeDetails} from '../../types/types';
 
 interface User {
     id: string;
@@ -26,27 +26,27 @@ export const useRecipeStore = create<RecipeStore>((set) => ({
 
     searchRecipes: async (user, ingredients) => {
         try {
-            set({ loading: true, error: null });
+            set({loading: true, error: null});
 
             if (!user || !user.token) {
                 throw new Error('User not authenticated or token missing');
             }
 
             const recipes = await recipeService.searchRecipes(user.token, ingredients);
-            set({ recipes, loading: false });
+            set({recipes, loading: false});
         } catch (error) {
-            set({ error: 'Failed to search recipes', loading: false });
+            set({error: 'Failed to search recipes', loading: false});
         }
     },
 
     getRecipeDetails: async (id) => {
         try {
-            set({ loading: true, error: null });
+            set({loading: true, error: null});
 
             const recipe = await recipeService.getRecipeDetails(id);
-            set({ currentRecipe: recipe, loading: false });
+            set({currentRecipe: recipe, loading: false});
         } catch (error) {
-            set({ error: 'Failed to get recipe details', loading: false });
+            set({error: 'Failed to get recipe details', loading: false});
         }
     }
 }));

@@ -1,5 +1,5 @@
-import { Tabs } from 'expo-router';
-import { Search, History, User } from 'lucide-react-native';
+import {Tabs} from 'expo-router';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export default function TabLayout() {
     return (
@@ -7,7 +7,7 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="(tabs)/search"
                 options={{
-                    tabBarIcon: ({ color }) => <Search color={color} size={24} />,
+                    tabBarIcon: ({color}) => <MaterialIcons name="search" color={color} size={24}/>,
                     tabBarLabel: 'Search',
                     headerShown: false
                 }}
@@ -15,7 +15,7 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="(tabs)/history"
                 options={{
-                    tabBarIcon: ({ color }) => <History color={color} size={24} />,
+                    tabBarIcon: ({color}) => <MaterialIcons name="history" color={color} size={24}/>,
                     tabBarLabel: 'History',
                     headerShown: false
                 }}
@@ -23,7 +23,7 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="(tabs)/profile"
                 options={{
-                    tabBarIcon: ({ color }) => <User color={color} size={24} />,
+                    tabBarIcon: ({color}) => <MaterialIcons name="person" color={color} size={24}/>,
                     tabBarLabel: 'Profile',
                     headerShown: false
                 }}

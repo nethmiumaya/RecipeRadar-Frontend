@@ -1,18 +1,17 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { useRouter } from 'expo-router';
-import { Mail, Lock } from 'lucide-react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import {useRouter} from 'expo-router';
+import {Mail, Lock} from 'lucide-react-native';
+import {LinearGradient} from 'expo-linear-gradient';
 import {useAuth} from "../../context/auth";
 import {useState} from "react";
 
 export default function LoginScreen() {
     const router = useRouter();
-    const { signIn } = useAuth();
+    const {signIn} = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    // login.tsx
     const handleLogin = async () => {
         try {
             setError('');
@@ -20,7 +19,7 @@ export default function LoginScreen() {
                 setError('Please fill in all fields');
                 return;
             }
-            await signIn({ email, password });
+            await signIn({email, password});
             router.replace('/(tabs)');
         } catch (error) {
             setError('Invalid email or password');
@@ -33,17 +32,17 @@ export default function LoginScreen() {
                 style={styles.header}
             >
                 <Image
-                    source={{ uri: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?q=80&w=800&auto=format&fit=crop' }}
+                    source={{uri: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?q=80&w=800&auto=format&fit=crop'}}
                     style={styles.headerImage}
                 />
-                <View style={styles.overlay} />
+                <View style={styles.overlay}/>
                 <Text style={styles.title}>Welcome Back</Text>
                 <Text style={styles.subtitle}>Sign in to explore healthy recipes</Text>
             </LinearGradient>
 
             <View style={styles.form}>
                 <View style={styles.inputContainer}>
-                    <Mail size={20} color="#2E7D32" />
+                    <Mail size={20} color="#2E7D32"/>
                     <TextInput
                         style={styles.input}
                         placeholder="Email"
@@ -56,7 +55,7 @@ export default function LoginScreen() {
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <Lock size={20} color="#2E7D32" />
+                    <Lock size={20} color="#2E7D32"/>
                     <TextInput
                         style={styles.input}
                         placeholder="Password"
@@ -76,7 +75,7 @@ export default function LoginScreen() {
                 <Text style={styles.orText}>or continue with</Text>
 
                 <TouchableOpacity onPress={() => router.push('/register')}>
-                    <View style={{ alignItems: 'center' }}>
+                    <View style={{alignItems: 'center'}}>
                         <Text style={styles.registerText}>Don't have an account? Sign up</Text>
                     </View>
                 </TouchableOpacity>

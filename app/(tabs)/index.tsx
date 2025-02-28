@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
-import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
-import { useAuth } from '../../context/auth';
+import {useEffect, useState} from 'react';
+import {View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {useRouter} from 'expo-router';
+import {useAuth} from '../../context/auth';
 import RecipeCard from '../../components/RecipeCard';
-import { Search } from 'lucide-react-native';
-import { useRecipeStore } from '../../store/slices/recipeSlice';
-import { useSearchHistoryStore } from '../../store/slices/searchHistorySlice';
+import {Search} from 'lucide-react-native';
+import {useRecipeStore} from '../../store/slices/recipeSlice';
+import {useSearchHistoryStore} from '../../store/slices/searchHistorySlice';
 
 export default function SearchScreen() {
     const router = useRouter();
-    const { user } = useAuth();
+    const {user} = useAuth();
     const [ingredients, setIngredients] = useState('');
-    const { recipes, searchRecipes, loading } = useRecipeStore();
-    const { fetchSearchHistory } = useSearchHistoryStore();
+    const {recipes, searchRecipes, loading} = useRecipeStore();
+    const {fetchSearchHistory} = useSearchHistoryStore();
 
     useEffect(() => {
         if (user) {
@@ -37,7 +37,7 @@ export default function SearchScreen() {
                     onChangeText={setIngredients}
                 />
                 <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-                    <Search color="#fff" size={24} />
+                    <Search color="#fff" size={24}/>
                 </TouchableOpacity>
             </View>
 
@@ -47,7 +47,7 @@ export default function SearchScreen() {
                 <FlatList
                     data={recipes}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => (
+                    renderItem={({item}) => (
                         <RecipeCard
                             recipe={item}
                             onPress={() => router.push(`/recipe/${item.id}`)}

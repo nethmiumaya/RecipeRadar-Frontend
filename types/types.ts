@@ -1,4 +1,3 @@
-
 export interface Recipe {
     id: number;
     title: string;
@@ -8,6 +7,7 @@ export interface Recipe {
     usedIngredientCount: number;
     missedIngredientCount: number;
 }
+
 export interface SearchHistoryItem {
     id: string;
     query: string;
@@ -28,6 +28,7 @@ export interface RecipeDetails extends Recipe {
     readyInMinutes: number;
     servings: number;
 }
+
 export interface User {
     id: string;
     name: string;

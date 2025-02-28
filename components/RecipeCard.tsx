@@ -1,5 +1,5 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, Platform } from 'react-native';
-import { Clock, Users } from 'lucide-react-native';
+import {View, Text, Image, TouchableOpacity, StyleSheet, Platform} from 'react-native';
+import {Clock, Users} from 'lucide-react-native';
 import {Recipe} from "../types/types";
 
 interface RecipeCardProps {
@@ -7,23 +7,23 @@ interface RecipeCardProps {
     onPress: () => void;
 }
 
-export default function RecipeCard({ recipe, onPress }: RecipeCardProps) {
+export default function RecipeCard({recipe, onPress}: RecipeCardProps) {
     return (
         <TouchableOpacity style={styles.container} onPress={onPress}>
-            <Image source={{ uri: recipe.image }} style={styles.image} />
+            <Image source={{uri: recipe.image}} style={styles.image}/>
             <View style={styles.content}>
                 <Text style={styles.title} numberOfLines={2}>
                     {recipe.title}
                 </Text>
                 <View style={styles.stats}>
                     <View style={styles.stat}>
-                        <Clock size={16} color="#666" />
+                        <Clock size={16} color="#666"/>
                         <Text style={styles.statText}>
                             {recipe.readyInMinutes || '30'} mins
                         </Text>
                     </View>
                     <View style={styles.stat}>
-                        <Users size={16} color="#666" />
+                        <Users size={16} color="#666"/>
                         <Text style={styles.statText}>
                             {recipe.servings || '4'} servings
                         </Text>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         ...Platform.select({
             ios: {
                 shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
+                shadowOffset: {width: 0, height: 2},
                 shadowOpacity: 0.1,
                 shadowRadius: 8,
             },

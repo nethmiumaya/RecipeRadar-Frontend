@@ -1,13 +1,13 @@
-import { View, Text, Image, ScrollView, StyleSheet } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
-import { useEffect } from 'react';
-import { useRecipeStore } from '../../store/store';
-import { Clock, Users, ChefHat } from 'lucide-react-native';
-import { Ingredient } from '../../types/types';
+import {View, Text, Image, ScrollView, StyleSheet} from 'react-native';
+import {useLocalSearchParams} from 'expo-router';
+import {useEffect} from 'react';
+import {useRecipeStore} from '../../store/store';
+import {Clock, Users, ChefHat} from 'lucide-react-native';
+import {Ingredient} from '../../types/types';
 
 export default function RecipeDetailsScreen() {
-    const { id } = useLocalSearchParams();
-    const { getRecipeDetails, currentRecipe, loading } = useRecipeStore();
+    const {id} = useLocalSearchParams();
+    const {getRecipeDetails, currentRecipe, loading} = useRecipeStore();
 
     useEffect(() => {
         if (id) {
@@ -25,25 +25,25 @@ export default function RecipeDetailsScreen() {
 
     return (
         <ScrollView style={styles.container}>
-            <Image source={{ uri: currentRecipe.image }} style={styles.image} />
+            <Image source={{uri: currentRecipe.image}} style={styles.image}/>
             <View style={styles.content}>
                 <Text style={styles.title}>{currentRecipe.title}</Text>
                 <View style={styles.infoContainer}>
                     <View style={styles.infoItem}>
-                        <Clock size={20} color="#666" />
+                        <Clock size={20} color="#666"/>
                         <Text style={styles.infoValue}>{currentRecipe.readyInMinutes || '30'} mins</Text>
                         <Text style={styles.infoLabel}>Time</Text>
                     </View>
-                    <View style={styles.infoDivider} />
+                    <View style={styles.infoDivider}/>
                     <View style={styles.infoItem}>
-                        <Users size={20} color="#666" />
+                        <Users size={20} color="#666"/>
                         <Text style={styles.infoValue}>{currentRecipe.servings || '4'}</Text>
                         <Text style={styles.infoLabel}>Servings</Text>
                     </View>
                 </View>
                 <View style={styles.section}>
                     <View style={styles.sectionHeader}>
-                        <ChefHat size={20} color="#666" />
+                        <ChefHat size={20} color="#666"/>
                         <Text style={styles.sectionTitle}>Ingredients</Text>
                     </View>
                     {currentRecipe.extendedIngredients.map((ingredient: Ingredient, index: number) => (

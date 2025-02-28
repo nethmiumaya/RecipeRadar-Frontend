@@ -1,11 +1,11 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import {AuthContextType, User } from '../types/types';
-import { storage } from '../storage/storage';
-import { authService } from '../service/authService';
+import {createContext, useContext, useState, useEffect} from 'react';
+import {AuthContextType, User} from '../types/types';
+import {storage} from '../storage/storage';
+import {authService} from '../service/authService';
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({children}: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, signIn, signUp, signOut }}>
+        <AuthContext.Provider value={{user, signIn, signUp, signOut}}>
             {children}
         </AuthContext.Provider>
     );

@@ -1,4 +1,4 @@
-import { useRecipeStore } from './slices/recipeSlice';
-import { useSearchHistoryStore } from './slices/searchHistorySlice';
+import {useRecipeStore} from './slices/recipeSlice';
+import {useSearchHistoryStore} from './slices/searchHistorySlice';
 
-export { useRecipeStore, useSearchHistoryStore };
+export {useRecipeStore, useSearchHistoryStore};

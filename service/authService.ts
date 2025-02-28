@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { API_URL } from '../config';
-import { User } from '../types/types';
+import {API_URL} from '../config';
+import {User} from '../types/types';
 
 export const authService = {
     async signIn(credentials: { email: string; password: string }): Promise<User> {

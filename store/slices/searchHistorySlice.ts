@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { searchHistoryService } from '../../service/searchHistoryService';
-import { User, SearchHistoryItem } from '../../types/types';
+import {create} from 'zustand';
+import {searchHistoryService} from '../../service/searchHistoryService';
+import {User, SearchHistoryItem} from '../../types/types';
 
 interface SearchHistoryStore {
     searchHistory: SearchHistoryItem[];
@@ -16,16 +16,16 @@ export const useSearchHistoryStore = create<SearchHistoryStore>((set) => ({
 
     fetchSearchHistory: async (user) => {
         try {
-            set({ loading: true, error: null });
+            set({loading: true, error: null});
 
             if (!user || !user.token) {
                 throw new Error('User not authenticated or token missing');
             }
 
             const searchHistory = await searchHistoryService.fetchSearchHistory(user);
-            set({ searchHistory, loading: false });
+            set({searchHistory, loading: false});
         } catch (error) {
-            set({ error: 'Failed to fetch search history', loading: false });
+            set({error: 'Failed to fetch search history', loading: false});
         }
     }
 }));

@@ -1,14 +1,14 @@
-import { View, Text, FlatList, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router';
-import { useAuth } from '../../context/auth';
+import {View, Text, FlatList, StyleSheet} from 'react-native';
+import {useRouter} from 'expo-router';
+import {useAuth} from '../../context/auth';
 import SearchHistoryItem from '../../components/SearchHistoryItem';
-import { useEffect } from 'react';
-import { useSearchHistoryStore } from '../../store/slices/searchHistorySlice';
+import {useEffect} from 'react';
+import {useSearchHistoryStore} from '../../store/slices/searchHistorySlice';
 
 export default function HistoryScreen() {
     const router = useRouter();
-    const { user } = useAuth();
-    const { searchHistory, fetchSearchHistory } = useSearchHistoryStore();
+    const {user} = useAuth();
+    const {searchHistory, fetchSearchHistory} = useSearchHistoryStore();
 
     useEffect(() => {
         if (user) {
@@ -16,10 +16,10 @@ export default function HistoryScreen() {
         }
     }, [user]);
 
-    const renderItem = ({ item }: { item: { id: string; query: string; userId: string; createdAt: string } }) => (
+    const renderItem = ({item}: { item: { id: string; query: string; userId: string; createdAt: string } }) => (
         <SearchHistoryItem
             query={item}
-            onPress={() => router.push(`/recipe/${Number(item.id)}`)} // Ensure id is parsed as a number
+            onPress={() => router.push(`/recipe/${Number(item.id)}`)}
         />
     );
 
