@@ -8,6 +8,8 @@ node_modules/
 dist/
 web-build/
 expo-env.d.ts
+.idea/
+.package-lock.json
 
 # Native
 *.orig.*
@@ -34,3 +36,4 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+

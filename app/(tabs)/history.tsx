@@ -1,14 +1,14 @@
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
-import { useRecipeStore } from '../../store/recipes';
 import { useAuth } from '../../context/auth';
 import SearchHistoryItem from '../../components/SearchHistoryItem';
 import { useEffect } from 'react';
+import { useSearchHistoryStore } from '../../store/slices/searchHistorySlice';
 
 export default function HistoryScreen() {
     const router = useRouter();
     const { user } = useAuth();
-    const { searchHistory, fetchSearchHistory } = useRecipeStore();
+    const { searchHistory, fetchSearchHistory } = useSearchHistoryStore();
 
     useEffect(() => {
         if (user) {

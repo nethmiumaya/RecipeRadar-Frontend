@@ -75,15 +75,6 @@ export default function LoginScreen() {
 
                 <Text style={styles.orText}>or continue with</Text>
 
-                <View style={styles.socialButtons}>
-                    <TouchableOpacity style={styles.socialButton}>
-                        <Image source={require('../../assets/icons/facebook.jpg')} style={styles.socialIcon} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.socialButton}>
-                        <Image source={require('../../assets/icons/google_ison.jpg')} style={styles.socialIcon} />
-                    </TouchableOpacity>
-                </View>
-
                 <TouchableOpacity onPress={() => router.push('/register')}>
                     <View style={{ alignItems: 'center' }}>
                         <Text style={styles.registerText}>Don't have an account? Sign up</Text>

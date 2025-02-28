@@ -13,10 +13,8 @@ function useProtectedRoute() {
         const inAuthGroup = segments[0] === '(auth)';
 
         if (!user && !inAuthGroup) {
-            // Redirect to the sign-in page.
             router.replace('/login');
         } else if (user && inAuthGroup) {
-            // Redirect away from the sign-in page.
             router.replace('/(tabs)');
         }
     }, [user, segments]);
