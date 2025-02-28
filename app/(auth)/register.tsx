@@ -30,7 +30,7 @@ export default function RegisterScreen() {
     return (
         <View style={styles.container}>
             <LinearGradient
-                colors={['#ff6b6b', '#ff8787']}
+                colors={['#4CAF50', '#66BB6A']}
                 style={styles.header}
             >
                 <Image
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(255, 107, 107, 0.8)',
+        backgroundColor: 'rgba(76, 175, 80, 0.8)',
     },
     title: {
         fontSize: 32,
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     button: {
-        backgroundColor: '#ff6b6b',
+        backgroundColor: '#4CAF50',
         height: 56,
         borderRadius: 12,
         justifyContent: 'center',
@@ -175,8 +175,9 @@ const styles = StyleSheet.create({
         paddingVertical: 16,
     },
     linkText: {
-        color: '#666',
-        fontSize: 14,
+        marginTop: 16,
+        color: '#2E7D32',
+        fontWeight: 'bold',
     },
     error: {
         color: '#ff6b6b',

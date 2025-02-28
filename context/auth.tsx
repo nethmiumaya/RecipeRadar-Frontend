@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 import { createContext } from 'react';
+import {API_URL} from "../config";
 
 interface User {
     id: string;
@@ -58,29 +59,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const signIn = async (credentials: { email: string; password: string }) => {
         try {
-            const response = await axios.post('http://localhost:3000/api/auth/login', credentials);
-            // Get ALL user data from the login response including name and email
+            const response = await axios.post(`${API_URL}/auth/login`, credentials);
             const { id, name, email, token } = response.data;
-
             const userWithToken = { id, name, email, token };
             await storage.setItem('user', JSON.stringify(userWithToken));
             setUser(userWithToken);
         } catch (error) {
-            console.error('Login failed:', error);
+            if (error.response && error.response.status === 404) {
+                console.error('Login failed: Endpoint not found');
+            } else {
+                console.error('Login failed:', error.message);
+            }
             throw new Error('Invalid email or password');
         }
     };
 
     const signUp = async (credentials: { email: string; password: string; name: string }) => {
         try {
-            const response = await axios.post('http://localhost:3000/api/auth/register', credentials);
-            const { token } = response.data;
-
-            const userWithToken = { id: '1', name: credentials.name, email: credentials.email, token };
+            const response = await axios.post(`${API_URL}/auth/register`, credentials);
+            const { id, name, email, token } = response.data;
+            const userWithToken = { id, name, email, token };
             await storage.setItem('user', JSON.stringify(userWithToken));
             setUser(userWithToken);
         } catch (error) {
-            console.error('Registration failed:', error);
+            if (error.response && error.response.status === 404) {
+                console.error('Registration failed: Endpoint not found');
+            } else {
+                console.error('Registration failed:', error.message);
+            }
             throw new Error('Registration failed. Please try again.');
         }
     };

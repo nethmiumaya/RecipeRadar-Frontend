@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     },
     missedCount: {
         fontSize: 14,
-        color: '#ff6b6b',
+        color: '#2E7D32',
         fontWeight: '500',
     },
 });

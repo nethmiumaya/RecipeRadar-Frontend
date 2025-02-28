@@ -1,9 +1,9 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
-import { useAuth } from '../../context/auth';
-import { Lock, Mail } from 'lucide-react-native';
+import { Mail, Lock } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import {useAuth} from "../../context/auth";
+import {useState} from "react";
 
 export default function LoginScreen() {
     const router = useRouter();
@@ -26,45 +26,44 @@ export default function LoginScreen() {
             setError('Invalid email or password');
         }
     };
-
     return (
         <View style={styles.container}>
             <LinearGradient
-                colors={['#ff6b6b', '#ff8787']}
+                colors={['#4CAF50', '#66BB6A']}
                 style={styles.header}
             >
                 <Image
-                    source={{ uri: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?q=80&w=800&auto=format&fit=crop' }}
+                    source={{ uri: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?q=80&w=800&auto=format&fit=crop' }}
                     style={styles.headerImage}
                 />
                 <View style={styles.overlay} />
                 <Text style={styles.title}>Welcome Back</Text>
-                <Text style={styles.subtitle}>Sign in to discover delicious recipes</Text>
+                <Text style={styles.subtitle}>Sign in to explore healthy recipes</Text>
             </LinearGradient>
 
             <View style={styles.form}>
                 <View style={styles.inputContainer}>
-                    <Mail size={20} color="#666" />
+                    <Mail size={20} color="#2E7D32" />
                     <TextInput
                         style={styles.input}
                         placeholder="Email"
                         value={email}
                         onChangeText={setEmail}
                         autoCapitalize="none"
+                        placeholderTextColor="#666"
                         keyboardType="email-address"
-                        placeholderTextColor="#999"
                     />
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <Lock size={20} color="#666" />
+                    <Lock size={20} color="#2E7D32" />
                     <TextInput
                         style={styles.input}
                         placeholder="Password"
                         value={password}
                         onChangeText={setPassword}
                         secureTextEntry
-                        placeholderTextColor="#999"
+                        placeholderTextColor="#666"
                     />
                 </View>
 
@@ -74,11 +73,21 @@ export default function LoginScreen() {
                     <Text style={styles.buttonText}>Sign In</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={styles.linkButton}
-                    onPress={() => router.push('/register')}
-                >
-                    <Text style={styles.linkText}>Don't have an account? Create one</Text>
+                <Text style={styles.orText}>or continue with</Text>
+
+                <View style={styles.socialButtons}>
+                    <TouchableOpacity style={styles.socialButton}>
+                        <Image source={require('../../assets/icons/facebook.jpg')} style={styles.socialIcon} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.socialButton}>
+                        <Image source={require('../../assets/icons/google_ison.jpg')} style={styles.socialIcon} />
+                    </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity onPress={() => router.push('/register')}>
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={styles.registerText}>Don't have an account? Sign up</Text>
+                    </View>
                 </TouchableOpacity>
             </View>
         </View>
@@ -88,7 +97,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#E8F5E9',
     },
     header: {
         height: 300,
@@ -103,7 +112,7 @@ const styles = StyleSheet.create({
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(255, 107, 107, 0.8)',
+        backgroundColor: 'rgba(76, 175, 80, 0.8)',
     },
     title: {
         fontSize: 32,
@@ -126,11 +135,12 @@ const styles = StyleSheet.create({
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#f8f8f8',
+        backgroundColor: '#f0f0f0',
         borderRadius: 12,
         paddingHorizontal: 16,
-        marginBottom: 16,
         height: 56,
+        width: '100%',
+        marginBottom: 16,
     },
     input: {
         flex: 1,
@@ -139,33 +149,49 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     button: {
-        backgroundColor: '#ff6b6b',
+        backgroundColor: '#4CAF50',
         height: 56,
+        width: '100%',
         borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 8,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-        elevation: 3,
     },
     buttonText: {
         color: '#fff',
         fontSize: 16,
         fontWeight: '600',
     },
-    linkButton: {
-        alignItems: 'center',
-        paddingVertical: 16,
-    },
-    linkText: {
+    orText: {
+        marginVertical: 16,
         color: '#666',
-        fontSize: 14,
+    },
+    socialButtons: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        gap: 16,
+    },
+    socialButton: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 3,
+    },
+    socialIcon: {
+        width: 30,
+        height: 30,
+        resizeMode: 'contain',
+    },
+    registerText: {
+        marginTop: 16,
+        color: '#2E7D32',
+        fontWeight: 'bold',
     },
     error: {
         color: '#ff6b6b',
